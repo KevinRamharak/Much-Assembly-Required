@@ -65,6 +65,9 @@ public class CPU implements MongoSerializable {
         registerSet = new DefaultRegisterSet();
         codeSectionOffset = 0;
 
+        ServerConfiguration config = GameServer.INSTANCE.getConfig();
+        codeSectionOffset = config.getInt("org_offset");
+
         instructionSet.add(new JmpInstruction(this));
         instructionSet.add(new JnzInstruction(this));
         instructionSet.add(new JzInstruction(this));
@@ -431,6 +434,10 @@ public class CPU implements MongoSerializable {
 
     public void setIp(char ip) {
         this.ip = ip;
+    }
+
+    public int getCodeSectionOffset() {
+        return codeSectionOffset;
     }
 
     public void setCodeSectionOffset(int codeSectionOffset) {
